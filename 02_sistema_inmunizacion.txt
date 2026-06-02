@@ -1,0 +1,234 @@
+SISTEMA II: ECUACIONES DE INMUNIZACIÓN
+=======================================
+
+6. VECTOR DE INMUNIDAD ESPIRITUAL
+----------------------------------
+Ecuación Base:
+ℑ⃗(y) = (𝔻ᵢˢᶜᵉʳⁿⁱᵐⁱᵉⁿᵗᵒ, ℰˢᶜʳⁱᵗᵘʳᵃˢ, ℂᵒᵐᵘⁿⁱᵈᵃᵈ_sana)
+
+Expansión Vectorial:
+ℑ⃗(y,t) = [D(y,t), E(y,t), C(y,t)]ᵀ
+
+Donde:
+- D(y,t) = nivel de discernimiento espiritual
+- E(y,t) = conocimiento escritural
+- C(y,t) = conexión con comunidad sana
+
+Componente de Discernimiento:
+D(y,t) = α₁·experiencia(t) + α₂·madurez(t) + α₃·sensibilidad_espíritu(t)
+
+Donde αᵢ son pesos (α₁ + α₂ + α₃ = 1)
+
+Componente Escritural:
+E(y,t) = ∫₀ᵗ [estudio(τ) + memorización(τ) + aplicación(τ)] dτ
+
+Componente Comunitario:
+C(y,t) = calidad_relaciones(t) · frecuencia_interacción(t) · salud_comunidad(t)
+
+Magnitud del Vector de Inmunidad:
+||ℑ⃗(y,t)|| = √[D²(y,t) + E²(y,t) + C²(y,t)]
+
+Normalización:
+ℑ̂(y,t) = ℑ⃗(y,t) / ||ℑ⃗(y,t)||
+
+Condición de Inmunidad Robusta:
+||ℑ⃗(y,t)|| > ℑ_min  ∧  min{D,E,C} > δ_min
+
+Donde:
+- ℑ_min = umbral de inmunidad mínima
+- δ_min = umbral individual por componente
+
+
+7. FUNCIÓN DE ANCLAJE EN VERDAD
+--------------------------------
+Ecuación Base:
+𝔸(y,t) = ∫ [estudio_bíblico(t) + oración_directa(t) + confirmación_múltiple(t)] dt
+
+Expansión:
+𝔸(y,t) = ∫₀ᵗ [β₁·𝔹(τ) + β₂·𝕆(τ) + β₃·ℂ(τ)] dτ
+
+Donde:
+- 𝔹(τ) = intensidad de estudio bíblico en tiempo τ
+- 𝕆(τ) = calidad de oración directa en tiempo τ
+- ℂ(τ) = confirmación múltiple recibida en tiempo τ
+- β₁, β₂, β₃ = pesos (β₁ + β₂ + β₃ = 1)
+
+Función de Estudio Bíblico:
+𝔹(t) = profundidad(t) · frecuencia(t) · aplicación(t)
+
+Componentes:
+- profundidad(t) ∈ [0,1]: superficial vs exegético
+- frecuencia(t): estudio diario = 1, semanal = 0.7, mensual = 0.3
+- aplicación(t): grado de práctica de lo aprendido
+
+Función de Oración Directa:
+𝕆(t) = sinceridad(t) · frecuencia(t) · duración(t) / (intermediarios(t) + 1)
+
+Nota: división por (intermediarios + 1) penaliza dependencia de intermediarios
+
+Función de Confirmación Múltiple:
+ℂ(t) = Σᵢ₌₁ⁿ wᵢ · confirmación_fuente_i(t)
+
+Fuentes de confirmación:
+i=1: Escrituras (w₁ = 0.5)
+i=2: Espíritu Santo interno (w₂ = 0.3)
+i=3: Comunidad madura (w₃ = 0.2)
+
+Tasa de Anclaje:
+d𝔸/dt = β₁·𝔹(t) + β₂·𝕆(t) + β₃·ℂ(t) - γ·deterioro(t)
+
+Donde γ·deterioro(t) representa pérdida por inactividad
+
+Condición de Anclaje Sólido:
+𝔸(y,t) > 𝔸_crítico  ∧  d𝔸/dt > 0
+
+
+8. OPERADOR DE VERIFICACIÓN TRIANGULAR
+---------------------------------------
+Ecuación Base:
+𝕍(mensaje) ≡ 
+  confirmación_escritural(mensaje) ∧
+  confirmación_espíritu_santo(mensaje) ∧  
+  confirmación_comunidad_madura(mensaje)
+
+Expansión:
+𝕍(m) = 𝕊(m) ∧ ℍ(m) ∧ 𝕂(m)
+
+Donde:
+- 𝕊(m) = verificación escritural
+- ℍ(m) = verificación por Espíritu Santo
+- 𝕂(m) = verificación por comunidad (koinonía)
+
+Verificación Escritural:
+𝕊(m) = {
+  1  si ∃v ∈ Escrituras: v apoya m ∧ ¬∃v' ∈ Escrituras: v' contradice m
+  0  en caso contrario
+}
+
+Puntuación de Alineación Escritural:
+𝕊ₛ(m) = (versículos_apoyo - k·versículos_contradicción) / total_versículos_relevantes
+
+Donde k > 1 (penalización por contradicción)
+
+Verificación por Espíritu Santo:
+ℍ(m) = paz_interna(m) ∧ convicción_interna(m) ∧ ¬perturbación_espiritual(m)
+
+Cuantificación:
+ℍₛ(m) = ω₁·paz(m) + ω₂·convicción(m) - ω₃·perturbación(m)
+
+Verificación Comunitaria:
+𝕂(m) = consenso_maduros(m) / total_maduros
+
+Ponderación por madurez:
+𝕂ₚ(m) = Σᵢ₌₁ⁿ [madurez_i · opinión_i(m)] / Σᵢ₌₁ⁿ madurez_i
+
+Veredicto Triangular:
+𝕍(m) = {
+  VERIFICADO       si 𝕊(m) = 1 ∧ ℍ(m) = 1 ∧ 𝕂(m) = 1
+  REQUIERE_CAUTELA si 2 de 3 condiciones = 1
+  RECHAZADO        si ≤ 1 condición = 1
+}
+
+Confianza en Verificación:
+ξ(m) = [𝕊ₛ(m) + ℍₛ(m) + 𝕂ₚ(m)] / 3
+
+
+9. SISTEMA DE FILTROS ESPIRITUALES
+-----------------------------------
+Ecuación Base:
+𝔉ₛ = {
+  ∀input_espiritual: pasa_test_bíblico(input) ∧
+  produce_fruto_santo(input) ∧
+  glorifica_a_Dios(input)
+}
+
+Expansión:
+𝔉ₛ(i) = 𝕋ᵦ(i) ∧ 𝕋f(i) ∧ 𝕋ᵍ(i)
+
+Donde i = input espiritual
+
+Test Bíblico:
+𝕋ᵦ(i) = alineación_doctrina(i) ∧ alineación_carácter_Dios(i) ∧ ¬contradicción(i)
+
+Puntuación:
+𝕋ᵦₛ(i) = coherencia_doctrinal(i) · ausencia_herejía(i)
+
+Test de Frutos:
+𝕋f(i) = Σⱼ₌₁⁹ fruto_j_presente(i) / 9
+
+Frutos evaluados:
+j=1: amor, j=2: gozo, j=3: paz, j=4: paciencia, j=5: benignidad
+j=6: bondad, j=7: fe, j=8: mansedumbre, j=9: templanza
+
+Test de Glorificación:
+𝕋ᵍ(i) = gloria_a_Dios(i) / (gloria_a_Dios(i) + gloria_a_otros(i) + ε)
+
+Donde ε > 0 evita división por cero
+
+Sistema de Filtrado en Capas:
+Capa 1 (Primaria): 𝔉₁(i) = ¬obviamente_falso(i)
+Capa 2 (Bíblica):  𝔉₂(i) = 𝕋ᵦ(i)
+Capa 3 (Frutos):   𝔉₃(i) = 𝕋f(i) > threshold_f
+Capa 4 (Gloria):   𝔉₄(i) = 𝕋ᵍ(i) > threshold_g
+
+Input Aprobado:
+𝔉ₛ(i) = 𝔉₁(i) ∧ 𝔉₂(i) ∧ 𝔉₃(i) ∧ 𝔉₄(i)
+
+
+10. ECUACIÓN DE RESISTENCIA A MANIPULACIÓN
+-------------------------------------------
+Ecuación Base:
+ℜ(y,x) = conocimiento_bíblico(y) × experiencia_genuina(y) / influencia_emocional(x)
+
+Expansión:
+ℜ(y,x,t) = [K(y,t) · G(y,t)] / [I(x,t) + ε]
+
+Donde:
+- K(y,t) = conocimiento bíblico de y
+- G(y,t) = experiencia genuina de y
+- I(x,t) = influencia emocional de x
+- ε > 0 = constante pequeña
+
+Conocimiento Bíblico:
+K(y,t) = k₁·amplitud(t) + k₂·profundidad(t) + k₃·aplicación(t)
+
+Componentes:
+- amplitud(t): cantidad de Escritura conocida
+- profundidad(t): nivel de comprensión
+- aplicación(t): práctica efectiva
+
+Experiencia Genuina:
+G(y,t) = encuentros_reales(t) · transformación_verificable(t)
+
+Influencia Emocional:
+I(x,t) = carisma(x) + manipulación_emocional(x,t) + presión_grupal(x,t)
+
+Factores de Vulnerabilidad:
+V(y,t) = soledad(t) + necesidad_pertenencia(t) + heridas_no_sanadas(t)
+
+Resistencia Ajustada:
+ℜₐ(y,x,t) = [K(y,t) · G(y,t)] / [I(x,t) · (1 + V(y,t)) + ε]
+
+Umbral de Resistencia:
+ℜₐ(y,x,t) > ℜ_min → RESISTENTE
+ℜₐ(y,x,t) < ℜ_min → VULNERABLE
+
+Tasa de Cambio de Resistencia:
+dℜ/dt = λ₁·(dK/dt) + λ₂·(dG/dt) - λ₃·(dI/dt) - λ₄·(dV/dt)
+
+Estrategia de Fortalecimiento:
+Maximizar: dK/dt y dG/dt
+Minimizar: V(y,t)
+Detectar temprano: aumentos en I(x,t)
+
+
+MÉTRICAS DE INMUNIZACIÓN:
+=========================
+Índice de Inmunidad Global:
+𝕀𝔾(y,t) = w₁·||ℑ⃗(y,t)|| + w₂·𝔸(y,t) + w₃·promedio[𝕍(m)] + w₄·ℜₐ(y,x,t)
+
+Condición de Inmunización Completa:
+𝕀𝔾(y,t) > 𝕀𝔾_crítico  ∧  todas_componentes > umbrales_individuales
+
+Protocolo de Mantenimiento:
+d𝕀𝔾/dt > 0  requiere práctica continua en todas las áreas

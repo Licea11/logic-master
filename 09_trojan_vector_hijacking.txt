@@ -1,0 +1,555 @@
+SISTEMA VIII: TROJAN VECTOR HIJACKING - SEGURIDAD DIGITAL Y CIBERNÉTICA
+=========================================================================
+ECUACIONES DE DETECCIÓN Y CONTRAATAQUE EN VECTORES TROJAN
+Fecha de creación: 2025-11-27
+Estado: ACTIVO - REPORTE CRÍTICO #3
+
+ESTRUCTURA DEL SISTEMA VIII:
+=============================
+
+SISTEMA VIII: VECTORES TROJAN Y HIJACKING DIGITAL (Archivo: 09_trojan_vector_hijacking.txt)
+  Ecuación 31: Evento de Hijacking Trojan
+  Ecuación 32: Compromiso de Identidad
+  Ecuación 33: Robo de Credenciales
+  Ecuación 34: Apariencia de Legitimidad
+  Ecuación 35: Asimetría de Conocimiento
+  Ecuación 36: Cadena de Ataque Secuencial
+  Ecuación 37: Contaminación de Plataforma
+  Ecuación 38: Cadena de Implicaciones
+  Ecuación 39: Criterios de Detección
+  Ecuación 40: Requisito Temporal
+  Ecuación 41: Hijacking de Espacio Vectorial
+  Ecuación 42: Puntuación de Riesgo
+  Ecuación 43: Obligación de Respuesta
+  Ecuación 44: Requisitos de Remediación
+  Ecuación 45: Responsabilidad Legal
+
+
+ECUACIONES FUNDAMENTALES:
+==========================
+
+ECUACIÓN 31: EVENTO DE HIJACKING TROJAN
+----------------------------------------
+TrojanHijack(f, u, i, p, t) ≝ 
+  ∃a ∈ Atacantes: Trojan(f) ∧ Posee(u,i) ∧ 
+  Subido(f,i,p,t) ∧ SubidorReal(a,f,i,p,t) ∧ a ≠ u
+
+Diccionario de Símbolos:
+  f = archivo (trojan/malware subido)
+  u = usuario (víctima cuya identidad fue secuestrada)
+  i = identidad (credenciales de cuenta en plataforma)
+  p = plataforma (aplicación/servicio)
+  t = tiempo (momento del incidente)
+  a = atacante (actor malicioso)
+  ∃ = "existe"
+  ∧ = "y" (conjunción lógica)
+  ≠ = "no igual a"
+  Trojan(f) = archivo f contiene malware trojan
+  Posee(u,i) = usuario u posee identidad i
+  Subido(f,i,p,t) = archivo subido como identidad i a plataforma p en tiempo t
+  SubidorReal(a,f,i,p,t) = atacante a fue el subidor real
+
+Traducción:
+"Un hijacking trojan ocurre cuando existe un atacante que subió un archivo trojan
+usando la identidad de una víctima, donde el atacante no es el dueño de la identidad."
+
+Umbral Crítico:
+  TrojanHijack(f,u,i,p,t) = TRUE → CÓDIGO_ROJO
+
+
+ECUACIÓN 32: COMPROMISO DE IDENTIDAD
+-------------------------------------
+IdentidadComprometida(u,i,t) ≝ 
+  ∃a,c: Atacante(a) ∧ Posee(a,c,t) ∧ 
+  TieneCredenciales(i,c) ∧ Posee(u,i)
+
+Diccionario de Símbolos:
+  c = credenciales (datos de autenticación)
+  Atacante(a) = entidad a es actor malicioso
+  Posee(a,c,t) = atacante tiene credenciales en tiempo t
+  TieneCredenciales(i,c) = identidad i usa credenciales c
+
+Traducción:
+"Una identidad está comprometida cuando un atacante posee las credenciales
+que pertenecen a la identidad de la víctima."
+
+Umbral Crítico:
+  IdentidadComprometida(u,i,t) = TRUE → RESETEO_INMEDIATO
+
+
+ECUACIÓN 33: ROBO DE CREDENCIALES
+----------------------------------
+CompromisoCredenciales(i,c,a,t₀) ≝ 
+  TieneCredenciales(i,c) ∧ Posee(a,c,t₀) ∧ 
+  ¬Autorizado(dueño(i),a,t₀)
+
+Diccionario de Símbolos:
+  t₀ = tiempo inicial (cuando credenciales fueron robadas)
+  ¬ = "no" (negación lógica)
+  dueño(i) = propietario legítimo de identidad i
+  Autorizado(u,a,t) = usuario u ha autorizado a atacante a en tiempo t
+
+Traducción:
+"Las credenciales están comprometidas cuando un atacante las posee
+sin autorización del propietario legítimo."
+
+Umbral Crítico:
+  CompromisoCredenciales(i,c,a,t₀) = TRUE → ALERTA_MÁXIMA
+
+
+ECUACIÓN 34: APARIENCIA DE LEGITIMIDAD
+---------------------------------------
+PareceLegítimo(f,i,p) ≝ 
+  ∀observador: Observa(observador, Subida(f,i,p)) → 
+  Cree(observador, SubidoPor(dueño(i), f))
+
+Diccionario de Símbolos:
+  ∀ = "para todo" (cuantificador universal)
+  → = "implica" (implicación lógica)
+  Observa(observador, evento) = observador ve el evento
+  Cree(observador, φ) = observador cree proposición φ
+  SubidoPor(usuario, archivo) = archivo fue subido por usuario
+
+Traducción:
+"Un archivo parece legítimo cuando cualquier observador que lo ve
+cree que fue subido por el propietario legítimo de la identidad."
+
+Factor de Peligro:
+  PareceLegítimo(f,i,p) = TRUE → ENGAÑO_PERFECTO
+
+
+ECUACIÓN 35: ASIMETRÍA DE CONOCIMIENTO
+---------------------------------------
+K_a(Subido(f,i,p,t)) ∧ ¬K_u(Subido(f,i,p,t))
+
+Diccionario de Símbolos:
+  K_x(φ) = agente x conoce proposición φ (modalidad epistémica)
+  K_a = conocimiento del atacante
+  K_u = conocimiento del usuario/víctima
+
+Traducción:
+"El atacante conoce sobre la subida, pero el usuario víctima no lo sabe."
+
+Ventaja del Atacante:
+  Asimetría_K = K_a - K_u = MÁXIMA
+
+
+ECUACIÓN 36: CADENA DE ATAQUE SECUENCIAL
+-----------------------------------------
+Reconocimiento(t₁) ⊢ CreaciónArma(t₂) ⊢ RoboCredenciales(t₃) ⊢ 
+Subida(t₄) ⊢ Ejecución(t₅)  donde t₁ < t₂ < t₃ < t₄ < t₅
+
+Diccionario de Símbolos:
+  ⊢ = "implica" o "lleva a" (causación secuencial)
+  < = "menor que" (ordenamiento temporal)
+  Reconocimiento(t) = fase de reconocimiento en tiempo t
+  CreaciónArma(t) = creación de malware en tiempo t
+  RoboCredenciales(t) = robo de credenciales en tiempo t
+  Subida(t) = subida maliciosa en tiempo t
+  Ejecución(t) = ejecución de payload en tiempo t
+
+Traducción:
+"El ataque sigue una secuencia: reconocimiento, luego creación de arma, luego
+robo de credenciales, luego subida, luego ejecución, en orden temporal estricto."
+
+Kill Chain:
+  Fase(n) → Fase(n+1) → ... → Compromiso_Total
+
+
+ECUACIÓN 37: CONTAMINACIÓN DE PLATAFORMA (ECUACIÓN PRINCIPAL #7)
+-----------------------------------------------------------------
+Malware(f) ∧ Almacenado(f,p) → ∀u': Descarga(u',f,p) → RiesgoExposición(u',f)
+
+Diccionario de Símbolos:
+  u' = cualquier otro usuario (variable sobre todos los usuarios)
+  Malware(f) = archivo f es malicioso
+  Almacenado(f,p) = archivo f está almacenado en plataforma p
+  Descarga(u',f,p) = usuario u' descarga archivo f de plataforma p
+  RiesgoExposición(u',f) = usuario u' está en riesgo por archivo f
+
+Traducción:
+"Si malware está almacenado en la plataforma, entonces cada usuario
+que lo descarga está en riesgo de infección."
+
+Propagación:
+  1 archivo malicioso → N usuarios en riesgo
+  Donde N = todos los descargadores
+
+
+ECUACIÓN 38: CADENA DE IMPLICACIONES
+-------------------------------------
+TrojanHijack(f,u,i,p,t) ⊢ 
+  IdentidadComprometida(u,i,t) ∧ 
+  BrechaSeguridad(p,t) ∧ 
+  DañoReputación(u,t)
+
+Diccionario de Símbolos:
+  BrechaSeguridad(p,t) = plataforma p experimentó brecha de seguridad en tiempo t
+  DañoReputación(u,t) = usuario u sufrió daño reputacional en tiempo t
+
+Traducción:
+"Un hijacking trojan necesariamente lleva a compromiso de identidad,
+brecha de seguridad y daño reputacional."
+
+Consecuencias Inevitables:
+  TrojanHijack → [Compromiso ∧ Brecha ∧ Daño]
+
+
+ECUACIÓN 39: CRITERIOS DE DETECCIÓN
+------------------------------------
+Sospechoso(f,i,p,t) ≝ 
+  (Trojan(f) ∨ SubidaAnómala(f,i,p,t) ∨ 
+   DispositivoDesconocido(sesión) ∨ ViajeImposible(sesiones))
+
+Diccionario de Símbolos:
+  ∨ = "o" (disyunción lógica)
+  SubidaAnómala(f,i,p,t) = patrón de subida inusual
+  DispositivoDesconocido(sesión) = dispositivo no reconocido para esta identidad
+  ViajeImposible(sesiones) = secuencia de sesiones geográficamente imposible
+
+Traducción:
+"Un archivo es sospechoso si es un trojan, subido anómalamente,
+desde dispositivo desconocido, o involucra viaje imposible."
+
+Banderas Rojas:
+  🚩(f,i,p,t) = Cualquier condición TRUE → INVESTIGAR
+
+
+ECUACIÓN 40: REQUISITO TEMPORAL
+--------------------------------
+∀eventos e₁,e₂: Causa(e₁,e₂) → tiempo(e₁) < tiempo(e₂)
+
+Diccionario de Símbolos:
+  e₁, e₂ = eventos
+  Causa(e₁,e₂) = evento e₁ causa evento e₂
+  tiempo(e) = marca de tiempo del evento e
+
+Traducción:
+"Para cualquier evento, si uno causa otro, la causa debe
+ocurrir antes del efecto."
+
+Ley Fundamental:
+  Causa → Efecto (unidireccional en tiempo)
+
+
+ECUACIÓN 41: HIJACKING DE ESPACIO VECTORIAL
+--------------------------------------------
+VectorHijack(v,H) ≝ 
+  ∃T: 𝕍→H: v ∉ H ∧ T(v) ∈ H ∧ 
+  Distancia(v, T(v)) > ε
+
+Diccionario de Símbolos:
+  v = vector (representando archivo en espacio vectorial)
+  H = subespacio (subespacio vectorial secuestrado)
+  𝕍 = espacio vectorial (todos los vectores de archivo posibles)
+  T = función de transformación
+  → = mapea a (flecha de función)
+  ∉ = "no en" (no pertenencia al conjunto)
+  ∈ = "en" (pertenencia al conjunto)
+  ε = epsilon (umbral positivo pequeño)
+  Distancia(v₁,v₂) = distancia matemática entre vectores
+
+Traducción:
+"Un vector es secuestrado cuando existe una transformación que lo mueve
+al subespacio secuestrado, modificándolo significativamente."
+
+Transformación Maliciosa:
+  v_original → T(v) → v_secuestrado
+  Donde ||v_original - v_secuestrado|| > ε
+
+
+ECUACIÓN 42: PUNTUACIÓN DE RIESGO
+----------------------------------
+Riesgo(u,i,p,t) = P(TrojanHijack|Evidencia) × Impacto(u,i,p)
+
+Diccionario de Símbolos:
+  P(X|Y) = probabilidad de X dada Y (probabilidad condicional)
+  Evidencia = datos e indicadores observados
+  Impacto(u,i,p) = severidad de consecuencias
+  × = multiplicación
+
+Traducción:
+"El riesgo es la probabilidad de hijacking trojan dada la evidencia,
+multiplicada por el impacto si ocurre."
+
+Evaluación de Riesgo:
+  Riesgo = Probabilidad × Impacto
+  Riesgo > 0.7 → ACCIÓN_INMEDIATA
+
+
+ECUACIÓN 43: OBLIGACIÓN DE RESPUESTA (ECUACIÓN PRINCIPAL #13)
+--------------------------------------------------------------
+TrojanHijack(f,u,i,p,t) → O(Notificar(u,t) ∧ Remover(f,p,t) ∧ Resetear(i,t))
+
+Diccionario de Símbolos:
+  O(φ) = "es obligatorio que φ" (modalidad deóntica)
+  Notificar(u,t) = notificar usuario u en tiempo t
+  Remover(f,p,t) = remover archivo f de plataforma p en tiempo t
+  Resetear(i,t) = resetear credenciales para identidad i en tiempo t
+
+Traducción:
+"Si un hijacking trojan ocurrió usando mi identidad, entonces la plataforma
+está obligada a: notificarme, remover el archivo malicioso, y resetear mis credenciales."
+
+Obligaciones Legales:
+  TrojanHijack → O(Notificar ∧ Remover ∧ Resetear)
+  Incumplimiento → VIOLACIÓN_LEGAL
+
+
+ECUACIÓN 44: REQUISITOS DE REMEDIACIÓN
+---------------------------------------
+Remediar(incidente) ≝ 
+  RevocarAcceso(i) ∧ RemoverArchivo(f,p) ∧ 
+  NotificarUsuarios(afectados) ∧ ResetearCredenciales(i)
+
+Diccionario de Símbolos:
+  RevocarAcceso(i) = terminar todas las sesiones activas para identidad i
+  RemoverArchivo(f,p) = eliminar archivo f de plataforma p
+  NotificarUsuarios(afectados) = informar a todos los usuarios potencialmente impactados
+  ResetearCredenciales(i) = forzar reseteo de password/credenciales
+
+Traducción:
+"La remediación apropiada requiere revocar acceso, remover el archivo,
+notificar usuarios afectados, y resetear credenciales."
+
+Checklist de Remediación:
+  ✓ Revocar acceso
+  ✓ Remover archivo
+  ✓ Notificar usuarios
+  ✓ Resetear credenciales
+  TODO = REMEDIADO
+
+
+ECUACIÓN 45: RESPONSABILIDAD LEGAL
+-----------------------------------
+BrechaDatos(org,t) ∧ ¬Notificar(usuarios,t+72h) → 
+  ViolaciónCumplimiento(org, GDPR)
+
+Diccionario de Símbolos:
+  org = organización (dueño de plataforma)
+  t+72h = 72 horas después del tiempo t
+  BrechaDatos(org,t) = organización tuvo brecha de datos en tiempo t
+  GDPR = Reglamento General de Protección de Datos
+  ViolaciónCumplimiento(org, regulación) = organización violó regulación
+
+Traducción:
+"Si una brecha de datos ocurre y los usuarios no son notificados
+dentro de 72 horas, la organización viola GDPR."
+
+Consecuencias Legales:
+  Brecha ∧ ¬Notificación(72h) → Multas + Sanciones + Demandas
+
+
+MÉTRICAS Y VARIABLES DEL SISTEMA VIII:
+=======================================
+
+Entidades Digitales:
+  f = archivo (trojan/malware)
+  u = usuario (víctima)
+  a = atacante (adversario)
+  i = identidad (credenciales)
+  p = plataforma (servicio)
+  t = tiempo
+  c = credenciales
+  s = sesión
+  v = vector (representación matemática)
+  H = subespacio (espacio secuestrado)
+
+Predicados de Estado:
+  Trojan(f) = archivo es trojan
+  Posee(u,i) = usuario posee identidad
+  Subido(f,i,p,t) = archivo subido
+  Comprometido(i,t) = identidad comprometida
+  Almacenado(f,p) = archivo en plataforma
+  Descarga(u,f,p) = usuario descarga archivo
+  Detectado(f,t) = amenaza detectada
+
+Funciones de Detección:
+  Sospechoso(f,i,p,t) = nivel de sospecha
+  Riesgo(u,i,p,t) = puntuación de riesgo
+  PareceLegítimo(f,i,p) = factor de engaño
+
+Operadores de Seguridad:
+  O(φ) = obligación deóntica
+  K_x(φ) = conocimiento epistémico
+  ⊢ = implicación causal
+
+
+UMBRALES CRÍTICOS DEL SISTEMA VIII:
+====================================
+
+Detección de Amenaza:
+  Sospechoso(f,i,p,t) > 0.6 → INVESTIGAR
+  Sospechoso(f,i,p,t) > 0.8 → CÓDIGO_ROJO
+  Riesgo(u,i,p,t) > 0.7 → ACCIÓN_INMEDIATA
+
+Estado de Compromiso:
+  IdentidadComprometida(u,i,t) = TRUE → RESETEO_OBLIGATORIO
+  CompromisoCredenciales(i,c,a,t) = TRUE → CAMBIO_INMEDIATO
+
+Contaminación:
+  Almacenado(Malware,p) = TRUE → CUARENTENA
+  RiesgoExposición(usuarios) > 0 → NOTIFICACIÓN_MASIVA
+
+Respuesta Legal:
+  TrojanHijack(f,u,i,p,t) = TRUE → O(Remediar)
+  Tiempo_sin_respuesta > 24h → ESCALAMIENTO
+  Tiempo_sin_respuesta > 72h → VIOLACIÓN_GDPR
+
+
+INTEGRACIÓN CON SISTEMAS I-VII:
+================================
+
+Paralelo con Sistema I (Detección Espiritual):
+  Sospechoso(f,i,p,t) ↔ 𝔽(x,t) (detección de frutos falsos)
+  PareceLegítimo(f,i,p) ↔ 𝔸ᵣₑₐₗ(x) (autenticidad aparente)
+  Asimetría_K ↔ Engaño espiritual
+
+Paralelo con Sistema II (Inmunización):
+  Riesgo(u,i,p,t) ↔ ||ℑ⃗(y,t)|| (vector de inmunidad)
+  ResetearCredenciales(i) ↔ 𝔸(y,t) (anclaje en verdad)
+  Filtros de seguridad ↔ 𝔉ₛ(i) (filtros espirituales)
+
+Paralelo con Sistema III (Contraataque):
+  Remediar(incidente) ↔ ℰ⃗(x,t) (exposición del falso)
+  NotificarUsuarios(afectados) ↔ ℑc(C) (inmunidad comunitaria)
+  RevocarAcceso(i) ↔ 𝔏ᵢᵦ(y,H₃) (liberación de espíritu falso)
+
+Paralelo con Sistema IV (Alerta Temprana):
+  Sospechoso(f,i,p,t) ↔ 🚩(x) (banderas rojas)
+  ViajeImposible(sesiones) ↔ 𝔾(x,t) (gradualismo engañoso)
+  DispositivoDesconocido ↔ 𝔼ᵣᵣᵒʳ(H₃) (espíritu de error)
+
+Paralelo con Sistema VII (Infiltración):
+  TrojanHijack(f,u,i,p,t) ↔ ℭ(qs,T,t) (estructura conspirativa)
+  K_a ∧ ¬K_u ↔ duda(y,p,t) (manipulación epistémica)
+  Cadena de ataque ↔ Coordinación de traidores
+
+
+PROTOCOLO DE DEFENSA TROJAN-ARCONTE:
+=====================================
+
+El Sistema VIII demuestra que las matemáticas de detección son universales:
+
+1. DETECCIÓN COMÚN:
+   Falsos profetas ≅ Malware
+   Espíritus engañadores ≅ Trojans
+   Infiltración espiritual ≅ Hijacking de identidad
+
+2. PATRONES IDÉNTICOS:
+   Ambos usan:
+   - Apariencia de legitimidad
+   - Asimetría de conocimiento
+   - Secuencias de ataque predecibles
+   - Contaminación propagante
+
+3. CONTRAMEDIDAS COMUNES:
+   - Detección temprana
+   - Inmunización preventiva
+   - Remediación rápida
+   - Notificación comunitaria
+
+4. MATEMÁTICAS UNIFICADAS:
+   TrojanHijack(digital) ≅ ℭ(espiritual)
+   Ambos modelables con lógica modal temporal-epistémica-deóntica
+
+
+REPORTE DE INCIDENTE ACTIVO:
+=============================
+
+ESTADO: REPORTE #3 (Reportes anteriores sin respuesta)
+FECHA: 2025-11-27
+SEVERIDAD: CRÍTICA
+
+EVIDENCIA:
+  TrojanHijack(f,u,i,p,t) = TRUE
+  IdentidadComprometida(u,i,t) = TRUE
+  Almacenado(f,p) = POTENCIAL
+  RiesgoExposición(usuarios) = ALTO
+
+ECUACIONES ACTIVADAS:
+  #37 (Contaminación de Plataforma) → Usuarios en riesgo
+  #43 (Obligación de Respuesta) → Plataforma debe actuar
+
+ACCIONES REQUERIDAS (Ecuación #44):
+  ✗ RevocarAcceso(i) - PENDIENTE
+  ✗ RemoverArchivo(f,p) - PENDIENTE
+  ✗ NotificarUsuarios(afectados) - PENDIENTE
+  ✗ ResetearCredenciales(i) - PENDIENTE
+
+CRONOLOGÍA:
+  Reporte #1: [fecha] - Sin respuesta
+  Reporte #2: [fecha] - Sin respuesta
+  Reporte #3: 2025-11-27 - ACTIVO
+
+ESCALAMIENTO:
+  t+24h sin respuesta → Equipo seguridad interno
+  t+72h sin respuesta → Legal/cumplimiento
+  t+96h sin respuesta → Autoridades regulatorias
+  t+120h sin respuesta → VIOLACIÓN_GDPR confirmada
+
+
+PRINCIPIOS MATEMÁTICOS FUNDAMENTALES:
+======================================
+
+1. PRINCIPIO DE CAUSALIDAD TEMPORAL:
+   ∀e₁,e₂: Causa(e₁,e₂) → tiempo(e₁) < tiempo(e₂)
+
+2. PRINCIPIO DE CONTAMINACIÓN:
+   Malware(f) ∧ Almacenado(f,p) → ∀u: Riesgo(u)
+
+3. PRINCIPIO DE OBLIGACIÓN LEGAL:
+   TrojanHijack → O(Notificar ∧ Remover ∧ Resetear)
+
+4. PRINCIPIO DE ASIMETRÍA:
+   K_atacante - K_víctima = MÁXIMO → Ventaja atacante
+
+5. PRINCIPIO DE APARIENCIA:
+   PareceLegítimo ≠ EsLegítimo
+   Verificación requerida
+
+6. PRINCIPIO DE CADENA:
+   Reconocimiento → Armado → Robo → Subida → Ejecución
+   Interrumpir cadena = Prevenir compromiso
+
+7. PRINCIPIO DE INMUNIDAD DIGITAL:
+   dSeguridad/dt ≥ 0 (seguridad debe incrementar con tiempo)
+
+8. PRINCIPIO DE TRANSPARENCIA:
+   O(Notificar) ∧ O(Revelar) → Confianza restaurada
+
+
+DEFENSA DEFINITIVA DIGITAL:
+============================
+
+Sistema seguro genuino posee simultáneamente:
+  Autenticación_fuerte = [MFA, Biometría, Tokens]
+  Monitoreo_continuo = [IDS, SIEM, Anomalía]
+  Respuesta_rápida = [<1h detección, <24h remediación]
+  Transparencia_total = [Notificación, Logs, Auditoría]
+  Cumplimiento_legal = [GDPR, SOC2, ISO27001]
+
+Cualquier desviación es detectable y debe reportarse.
+
+
+ECUACIÓN MAESTRA DEL SISTEMA VIII:
+===================================
+
+Sistema Completo Trojan-Digital:
+𝕊ₘ_digital(u,a,f,p,t) = [Detección(t) + Remediación(t) + Cumplimiento(t) + Transparencia(t)] / 4
+
+Objetivo:
+lim[t→∞] 𝕊ₘ_digital(u,t) = 1 (seguridad perfecta)
+
+Condición de Victoria:
+∀a ∈ Atacantes, ∀f ∈ Trojans:
+  𝕊ₘ_digital(u,a,f,p,t) > 0.9 ⟹ [Riesgo(u,t) ≈ 0 ∧ Compromiso(u,t) ≈ 0]
+
+
+═══════════════════════════════════════════════════════════════
+SISTEMA VIII - TROJAN VECTOR HIJACKING
+Total de ecuaciones: 15 (Ecuaciones 31-45)
+Estado: ACTIVO - REPORTE CRÍTICO
+Integración: COMPLETA con Sistemas I-VII
+Aplicación: Seguridad digital + Defensa espiritual unificada
+═══════════════════════════════════════════════════════════════

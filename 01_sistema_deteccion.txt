@@ -1,0 +1,205 @@
+SISTEMA I: ECUACIONES DE DETECCIÓN ESPIRITUAL
+==============================================
+
+1. FUNCIÓN DE ANÁLISIS DE FRUTOS
+---------------------------------
+Ecuación Base:
+𝔽(x,t) = ∑ᵢ [frutos_reales(x)ᵢ - frutos_proclamados(x)ᵢ]
+
+Expansión:
+𝔽(x,t) = Σᵢ₌₁ⁿ wᵢ · [fᵣ(x,t)ᵢ - fₚ(x,t)ᵢ]
+
+Donde:
+- wᵢ = peso/importancia del fruto i (∈ [0,1], Σwᵢ = 1)
+- fᵣ(x,t)ᵢ = medición objetiva del fruto real i en tiempo t
+- fₚ(x,t)ᵢ = fruto proclamado/prometido i en tiempo t
+- n = número total de frutos a evaluar
+
+Condición de Alerta:
+Si 𝔽(x,t) < -θ → ALERTA_FALSIFICACIÓN
+Donde θ = umbral de tolerancia (configurable)
+
+Frutos Evaluables (vectores):
+f₁ = amor (agape)
+f₂ = gozo genuino
+f₃ = paz transmitida
+f₄ = paciencia demostrada
+f₅ = benignidad observable
+f₆ = bondad en acciones
+f₇ = fe consistente
+f₈ = mansedumbre verificable
+f₉ = templanza/autocontrol
+
+Métrica de Divergencia Acumulada:
+𝔽ₐ(x,T) = ∫₀ᵀ 𝔽(x,t) dt / T
+
+Si 𝔽ₐ(x,T) < 0 sostenidamente → CONFIRMACIÓN_DE_FALSEDAD
+
+
+2. TEST DEL ARQUETIPO AUTÉNTICO
+--------------------------------
+Ecuación Base:
+𝔸ᵣₑₐₗ(x) = {
+  ∀a ∈ Atributos_Cristo: (x manifiesta a) ∧ (a verificable por frutos)
+  ¬∃b ∈ Comportamientos_anti_Cristo: x manifiesta b
+}
+
+Expansión Formal:
+𝔸ᵣₑₐₗ(x) = [∏ₐ∈𝒜 μ(x,a)] · [∏ᵦ∈ℬ (1 - μ(x,b))]
+
+Donde:
+- 𝒜 = conjunto de atributos de Cristo
+- ℬ = conjunto de comportamientos anti-Cristo
+- μ(x,a) = función de pertenencia/manifestación [0,1]
+
+Conjunto 𝒜 (Atributos de Cristo):
+a₁ = humildad genuina
+a₂ = amor sacrificial
+a₃ = verdad sin compromiso
+a₄ = misericordia activa
+a₅ = justicia equitativa
+a₆ = santidad práctica
+a₇ = obediencia al Padre
+a₈ = servicio desinteresado
+
+Conjunto ℬ (Anti-Cristo):
+b₁ = orgullo/soberbia
+b₂ = manipulación/control
+b₃ = mentira/engaño
+b₄ = explotación de vulnerables
+b₅ = búsqueda de gloria propia
+b₆ = hipocresía sistemática
+b₇ = rebelión contra verdad
+b₈ = egoísmo estructural
+
+Condición de Autenticidad:
+𝔸ᵣₑₐₗ(x) > α_min → CANDIDATO_AUTÉNTICO
+Donde α_min = umbral mínimo (típicamente > 0.7)
+
+
+3. DETECTOR DE INCONGRUENCIA ESPIRITUAL
+----------------------------------------
+Ecuación Base:
+𝕀(x,y,t) = |{palabras_de_x} - {acciones_de_x}| × factor_tiempo(t)
+
+Expansión:
+𝕀(x,t) = ||𝒫(x,t) - 𝒜(x,t)|| · ϕ(t)
+
+Donde:
+- 𝒫(x,t) = vector de palabras/promesas de x en tiempo t
+- 𝒜(x,t) = vector de acciones/cumplimientos en tiempo t
+- ϕ(t) = factor de amplificación temporal
+- ||·|| = norma euclidiana (distancia)
+
+Factor Temporal:
+ϕ(t) = 1 + log(1 + t/τ)
+Donde τ = constante de tiempo característica
+
+Incongruencia por Dimensión:
+𝕀ᵢ(x,t) = |𝒫ᵢ(x,t) - 𝒜ᵢ(x,t)|
+
+Dimensiones evaluables:
+i=1: enseñanzas vs vida personal
+i=2: promesas vs cumplimientos
+i=3: proclamación vs manifestación
+i=4: doctrina vs práctica
+i=5: público vs privado
+
+Índice de Hipocresía:
+ℍ(x,T) = (1/T) ∫₀ᵀ 𝕀(x,t) dt
+
+Si ℍ(x,T) > ℍ_crítico → HIPOCRESÍA_CONFIRMADA
+
+
+4. FUNCIÓN DE DISCERNIMIENTO DE ESPÍRITUS
+------------------------------------------
+Ecuación Base:
+𝔻(H₃) ≡ ∀comunicación_de_H₃:
+  ¿produce_frutos_del_Espíritu? ∧
+  ¿glorifica_a_Cristo_real? ∧  
+  ¿edifica_genuinamente?
+
+Expansión:
+𝔻(H₃,m) = f(m) ∧ g(m) ∧ e(m)
+
+Donde:
+- H₃ = entidad espiritual evaluada
+- m = mensaje/comunicación específica
+- f(m) = test de frutos
+- g(m) = test de glorificación
+- e(m) = test de edificación
+
+Test de Frutos:
+f(m) = (1/9)Σᵢ₌₁⁹ fᵢ(m) > f_min
+
+Donde fᵢ(m) ∈ {0,1} indica si el mensaje produce el fruto i
+
+Test de Glorificación:
+g(m) = {
+  1  si m glorifica a Cristo bíblico
+  0  si m glorifica a otra entidad
+}
+
+Test de Edificación:
+e(m) = crecimiento_espiritual(m) - daño_espiritual(m)
+
+e(m) > 0 → EDIFICANTE
+e(m) < 0 → DESTRUCTIVO
+
+Veredicto Final:
+𝔻(H₃) = {
+  ESPÍRITU_SANTO      si 𝔻(H₃,m) = TRUE ∀m
+  ESPÍRITU_DE_ERROR   si ∃m: 𝔻(H₃,m) = FALSE
+  REQUIERE_MÁS_DATOS  si insuficiente información
+}
+
+
+5. TEST DE AUTORIDAD ESPIRITUAL LEGÍTIMA
+-----------------------------------------
+Ecuación Base:
+𝔏(x) = {
+  humildad_genuina(x) ∧
+  ¬busca_gloria_propia(x) ∧
+  dirige_hacia_Cristo_real(x) ∧
+  ¬controla_manipulativamente(x)
+}
+
+Expansión:
+𝔏(x) = h(x) · (1 - s(x)) · c(x) · (1 - m(x))
+
+Donde:
+- h(x) ∈ [0,1] = índice de humildad
+- s(x) ∈ [0,1] = índice de búsqueda de gloria propia
+- c(x) ∈ [0,1] = índice de dirección hacia Cristo
+- m(x) ∈ [0,1] = índice de manipulación/control
+
+Índice de Humildad:
+h(x) = (1/n)Σᵢ₌₁ⁿ hᵢ(x)
+
+Componentes:
+h₁ = reconoce limitaciones propias
+h₂ = acepta corrección bíblica
+h₃ = sirve sin buscar reconocimiento
+h₄ = rechaza pedestales/culto
+h₅ = admite errores públicamente
+
+Índice de Búsqueda de Gloria:
+s(x) = detección_de_narcisismo + construcción_de_imagen + exigencia_de_lealtad
+
+Índice de Dirección a Cristo:
+c(x) = frecuencia_señalar_Cristo / frecuencia_señalar_sí_mismo
+
+Índice de Manipulación:
+m(x) = control_ejercido + culpa_inducida + dependencia_creada
+
+Legitimidad de Autoridad:
+𝔏(x) > 0.6 → AUTORIDAD_LEGÍTIMA
+𝔏(x) < 0.3 → AUTORIDAD_ILEGÍTIMA
+0.3 ≤ 𝔏(x) ≤ 0.6 → REQUIERE_EVALUACIÓN_ADICIONAL
+
+NOTAS DE IMPLEMENTACIÓN:
+========================
+- Todas las funciones μ, h, s, c, m requieren calibración con casos conocidos
+- Los umbrales (θ, α_min, ℍ_crítico, f_min) deben ajustarse según contexto
+- La evaluación debe ser multi-temporal: no basarse en un solo punto
+- Confirmación cruzada entre múltiples ecuaciones aumenta confiabilidad

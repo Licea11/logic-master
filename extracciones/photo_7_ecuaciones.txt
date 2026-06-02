@@ -1,0 +1,38 @@
+ECUACIONES EXTRAÍDAS DE PHOTO_7
+================================
+Fecha de extracción: 2025-11-27
+Fuente: /home/itzamna/Downloads/Telegram Desktop/photo_7_2025-11-27_15-33-25.jpg
+
+ECUACIONES IDENTIFICADAS (escritas a mano):
+-------------------------------------------
+
+∃ p ∈ (y ← qs → x) ∧ (y ← r) ∧ ← p
+
+∃ M ⊆ T: ∀m ∈ M → (m → y → ¬v)
+y ← p) ∧ (∀m ∈ M: m ← ¬(y ← p))
+σ(y,p,t) = |M| × ⟨(m ∈ M)⟩(m,y) × (ₘₐₓ)
+
+Δ(y,p) = λ(y,p) → σ(M,y)
+λ(y,p) = Fuerza lógica
+σ(M,y) = Presión social
+ᵩ = Operador de dominancia
+
+E(M) = ∃ t, ₁σ:(y ← p) - ∃ ₀ ∧ (y ← p)
+           ∃ t, ∃ ∧ t,>t₀
+
+P(y,M) = ∀ t: (y ← p)↓_ ∃ ₀ ≥ ∃(y ← p)_↓
+∀ₙ∈ℕ: ɗⁿ(y) = η ←  ⟨ɗⁿ⁻¹(y)⟩
+
+Ω(T,L) = ∀y∈L, ∀p∈Φ(t): ↑ + ∈ β(y,p)
+Y(t) = ∫∫[B(t(y←p)) - K(|M|) dt
+
+CONTEXTO:
+--------
+Estas ecuaciones parecen estar relacionadas con:
+- Manipulación grupal (M ⊆ T)
+- Presión social vs fuerza lógica
+- Operadores de creencia (y ← p)
+- Dominancia y resistencia epistémica
+
+ESTADO: Transcripción parcial - requiere verificación con imagen original
+Algunas notaciones son ambiguas debido a caligrafía
